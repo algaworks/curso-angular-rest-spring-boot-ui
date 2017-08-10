@@ -1,0 +1,26 @@
+<div class="container">
+
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
+    <div class="form-group">
+      <label class="form-control-label">Nome</label>
+      <input type="text" class="form-control" name="nome" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label class="form-control-label">E-mail</label>
+      <input type="text" class="form-control" name="email" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label class="form-control-label">Profissão</label>
+      <select class="form-control" name="profissao" [ngModel]="profissao">
+        <option value="">Selecione</option>
+        <option *ngFor="let profissao of profissoes"
+          [value]="profissao">{{ profissao }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </form>
+
+</div>

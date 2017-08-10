@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="ui-g">
+
+    <div class="ui-g-12">
+      <h1>Lançamentos</h1>
+    </div>
+
+    <div class="ui-g-12 ui-fluid">
+      <label>Descrição</label>
+      <input pInputText type="text">
+    </div>
+
+    <div class="ui-g-12">
+      <label style="display: block">Vencimento</label>
+      <input pInputText type="text" style="width: 95px">
+
+      <label>até</label>
+      <input pInputText type="text" style="width: 95px">
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+    </div>
+
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-dataTable [value]="lancamentos">
+        <p-column field="pessoa" header="Pessoa"></p-column>
+        <p-column field="descricao" header="Descrição"></p-column>
+        <p-column field="dataVencimento" header="Vencimento" styleClass="col-data"></p-column>
+        <p-column field="dataPagamento" header="Pagamento" styleClass="col-data"></p-column>
+        <p-column field="valor" header="Valor" styleClass="col-valor"></p-column>
+      </p-dataTable>
+
+    </div>
+
+  </div>
+
+</div>

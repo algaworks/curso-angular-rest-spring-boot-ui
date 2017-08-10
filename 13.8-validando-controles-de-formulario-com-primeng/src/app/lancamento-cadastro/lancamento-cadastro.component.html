@@ -1,0 +1,72 @@
+<div class="container">
+  <form autocomplete="off">
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>Novo Lançamento</h1>
+      </div>
+
+      <div class="ui-g-12">
+        <p-selectButton [options]="tipos" #tipo></p-selectButton>
+      </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label>Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy"
+          [inline]="false" [readonlyInput]="false"
+          [showIcon]="false"></p-calendar>
+      </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+        <p-calendar dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Descrição {{ descricao.errors | json }}</label>
+        <input pInputText type="text" name="descricao"
+          ngModel #descricao="ngModel" required minlength="5">
+
+        <div *ngIf="descricao.hasError('required') && descricao.dirty"
+          class="ui-message ui-messages-error">
+          Informe uma descrição
+        </div>
+        <div *ngIf="descricao.hasError('minlength') && descricao.dirty"
+          class="ui-message ui-messages-error">
+          Mínimo de {{ descricao.errors.minlength.requiredLength }} caracteres. Você digitou apenas {{ descricao.errors.minlength.actualLength }}
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label>Valor</label>
+        <input pInputText type="text" placeholder="0,00" name="valor" currencyMask
+          [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+          ngModel>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Categoria</label>
+        <p-dropdown [options]="categorias" placeholder="Selecione"
+          [autoWidth]="false"></p-dropdown>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Pessoa</label>
+        <p-dropdown [options]="pessoas" placeholder="Selecione"
+          [autoWidth]="false" [filter]="true"></p-dropdown>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Observação</label>
+        <textarea pInputTextarea rows="3"></textarea>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="button" label="Novo" class="ui-button-info"></button>
+        <a href="javascript:;">Voltar para a pesquisa</a>
+      </div>
+    </div>
+
+  </form>
+</div>

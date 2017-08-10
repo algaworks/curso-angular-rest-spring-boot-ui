@@ -1,0 +1,20 @@
+{
+  "cidades": [
+    {
+      "nome": "Uberlândia",
+      "id": 1
+    },
+    {
+      "nome": "Florianópolis",
+      "id": 2
+    },
+    {
+      "nome": "Goiânia",
+      "id": 4
+    },
+    {
+      "nome": "Curitiba",
+      "id": 6
+    }
+  ]
+}

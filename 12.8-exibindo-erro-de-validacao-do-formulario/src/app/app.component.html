@@ -1,0 +1,34 @@
+<div class="container">
+
+  <div *ngIf="usuarioForm.invalid" class="alert alert-danger">
+    Preencha todos os campos corretamente.
+  </div>
+
+  <form autocomplete="off" #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
+    <div class="form-group">
+      <label class="form-control-label">Nome</label>
+      <input type="text" class="form-control" name="primeiroNome"
+        [(ngModel)]="cliente.nome" required minlength="10">
+    </div>
+
+    <div class="form-group">
+      <label class="form-control-label">E-mail</label>
+      <input type="text" class="form-control" name="emailAddress"
+        [(ngModel)]="cliente.email" required email>
+    </div>
+
+    <div class="form-group">
+      <label class="form-control-label">Profissão</label>
+      <select class="form-control" name="profissao"
+          [(ngModel)]="cliente.profissao" required>
+        <option value="">Selecione</option>
+        <option *ngFor="let profissao of profissoes"
+          [value]="profissao">{{ profissao }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary"
+      [disabled]="!usuarioForm.valid">Salvar</button>
+  </form>
+
+</div>

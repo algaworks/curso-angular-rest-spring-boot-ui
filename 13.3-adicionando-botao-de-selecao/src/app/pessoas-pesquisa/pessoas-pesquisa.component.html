@@ -1,0 +1,47 @@
+<div class="container">
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Pessoas</h1>
+    </div>
+
+    <div class="ui-g-12 ui-fluid">
+      <label>Nome</label>
+      <input pInputText type="text">
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+    </div>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-dataTable [value]="pessoas" [rows]="5" [paginator]="true"
+            [responsive]="true">
+          <p-column field="nome" header="Nome"></p-column>
+          <p-column field="cidade" header="Cidade"></p-column>
+          <p-column field="estado" header="Estado"></p-column>
+          <p-column field="ativo" header="Status">
+            <ng-template let-pes="rowData" pTemplate="body">
+                <a href="javascript:;" [pTooltip]="pes.ativo ? 'Desativar' : 'Ativar'"
+                    tooltipPosition="top">
+                  {{ pes.ativo ? 'Ativo' : 'Inativo' }}
+                </a>
+            </ng-template>
+          </p-column>
+          <p-column styleClass="col-acoes">
+            <ng-template pTemplate="body">
+              <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+              <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+            </ng-template>
+          </p-column>
+      </p-dataTable>
+    </div>
+
+    <div class="ui-g-12">
+      <a pButton label="Nova Pessoa"></a>
+    </div>
+  </div>
+
+</div>
