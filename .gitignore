@@ -45,4 +45,4 @@ typings
 .DS_Store
 Thumbs.db
 
-ng*-update.sh
+ng-update-*.sh
