@@ -45,4 +45,5 @@ typings
 .DS_Store
 Thumbs.db
 
+yarn.lock
 ng-update-*.sh
