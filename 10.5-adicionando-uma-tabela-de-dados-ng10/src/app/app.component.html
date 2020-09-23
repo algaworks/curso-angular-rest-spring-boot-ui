@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="p-grid">
+
+    <div class="p-col-12">
+      <h1>Lançamentos</h1>
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Descrição</label>
+      <input pInputText type="text">
+    </div>
+
+    <div class="p-col-12">
+      <label style="display: block">Vencimento</label>
+      <input pInputText type="text" style="width: 95px">
+
+      <label>até</label>
+      <input pInputText type="text" style="width: 95px">
+    </div>
+
+    <div class="p-col-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+    </div>
+
+  </div>
+
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-table [value]="lancamentos">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Pessoa</th>
+            <th>Descrição</th>
+            <th class="col-data-header">Vencimento</th>
+            <th class="col-data-header">Pagamento</th>
+            <th class="col-valor-header">Valor</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lancamento>
+          <tr>
+            <td>{{ lancamento.pessoa }}</td>
+            <td>{{ lancamento.descricao }}</td>
+            <td class="col-data-content">{{ lancamento.dataVencimento }}</td>
+            <td class="col-data-content">{{ lancamento.dataPagamento }}</td>
+            <td class="col-valor-content">{{ lancamento.valor }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+</div>
