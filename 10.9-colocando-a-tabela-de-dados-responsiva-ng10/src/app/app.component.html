@@ -1,16 +1,16 @@
 <div class="container">
-  <div class="ui-g">
+  <div class="p-grid">
 
-    <div class="ui-g-12">
+    <div class="p-col-12">
       <h1>Lançamentos</h1>
     </div>
 
-    <div class="ui-g-12 ui-fluid">
+    <div class="p-col-12 p-fluid">
       <label>Descrição</label>
       <input pInputText type="text">
     </div>
 
-    <div class="ui-g-12">
+    <div class="p-col-12">
       <label style="display: block">Vencimento</label>
       <input pInputText type="text" style="width: 95px">
 
@@ -18,36 +18,58 @@
       <input pInputText type="text" style="width: 95px">
     </div>
 
-    <div class="ui-g-12">
+    <div class="p-col-12">
       <button pButton type="submit" label="Pesquisar"></button>
     </div>
 
   </div>
 
-  <div class="ui-g">
-    <div class="ui-g-12">
-      <p-dataTable [value]="lancamentos" [paginator]="true" [rows]="5"
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-table [value]="lancamentos" [paginator]="true" [rows]="2"
           [responsive]="true">
-        <p-column field="pessoa" header="Pessoa"></p-column>
-        <p-column field="descricao" header="Descrição"></p-column>
-        <p-column field="dataVencimento" header="Vencimento" styleClass="col-data"></p-column>
-        <p-column field="dataPagamento" header="Pagamento" styleClass="col-data"></p-column>
-        <p-column field="valor" header="Valor" styleClass="col-valor">
-          <ng-template let-lanc="rowData" pTemplate="body">
-            <span [style.color]="lanc.tipo === 'DESPESA' ? 'red' : 'blue'">{{lanc.valor}}</span>
-          </ng-template>
-        </p-column>
-        <p-column styleClass="col-acoes">
-            <ng-template pTemplate="body">
-              <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-              <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
-            </ng-template>
-        </p-column>
-      </p-dataTable>
-
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Pessoa</th>
+            <th>Descrição</th>
+            <th class="col-data-header">Vencimento</th>
+            <th class="col-data-header">Pagamento</th>
+            <th class="col-valor-header">Valor</th>
+            <th class="col-acoes-header"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lancamento>
+          <tr>
+            <td>
+              <span class="p-column-title">Pessoa</span>
+              {{ lancamento.pessoa }}
+            </td>
+            <td>
+              <span class="p-column-title">Descrição</span>
+              {{ lancamento.descricao }}
+            </td>
+            <td class="col-data">
+              <span class="p-column-title">Vencimento</span>
+              {{ lancamento.dataVencimento }}
+            </td>
+            <td class="col-data">
+              <span class="p-column-title">Pagamento</span>
+              {{ lancamento.dataPagamento }}
+            </td>
+            <td class="col-valor">
+              <span class="p-column-title">Valor</span>
+              <span [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{ lancamento.valor }}</span>
+            </td>
+            <td class="col-acoes">
+              <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
 
-    <div class="ui-g-12">
+    <div class="p-col-12">
       <a pButton label="Novo Lançamento"></a>
     </div>
 
