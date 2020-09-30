@@ -1,0 +1,12 @@
+<div class="container">
+    <app-funcionario-form (criado)="aoAdicionar($event)"></app-funcionario-form>
+
+    <div class="row" style="margin-top: 20px">
+
+        <div class="col-2" *ngFor="let f of funcionarios">
+            <app-funcionario-card [funcionario]="f"></app-funcionario-card>
+        </div>
+
+    </div>
+
+</div>
