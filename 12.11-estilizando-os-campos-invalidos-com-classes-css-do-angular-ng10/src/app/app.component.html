@@ -7,35 +7,32 @@
   <form autocomplete="off" #usuarioForm="ngForm"
       (ngSubmit)="salvar(usuarioForm)">
     <div class="form-group">
-      <label>Nome</label>
+      <label class="form-control-label">Nome</label>
       <input type="text" class="form-control" name="primeiroNome"
-        [(ngModel)]="cliente.nome" required minlength="10" #nome="ngModel"
-        [class.is-invalid]="nome.invalid && nome.touched">
+        [(ngModel)]="cliente.nome" required minlength="10" #nome="ngModel">
 
-      <div *ngIf="nome.hasError('required') && nome.touched" class="invalid-feedback">Informe um nome</div>
-      <div *ngIf="nome.hasError('minlength') && nome.touched" class="invalid-feedback">O nome deve ser completo</div>
+      <div *ngIf="nome.hasError('required') && nome.touched">Informe um nome</div>
+      <div *ngIf="nome.hasError('minlength') && nome.touched">O nome deve ser completo</div>
     </div>
 
     <div class="form-group">
-      <label>E-mail</label>
+      <label class="form-control-label">E-mail</label>
       <input type="text" class="form-control" name="emailAddress"
-        [(ngModel)]="cliente.email" email #email="ngModel"
-        [class.is-invalid]="email.invalid && email.touched">
+        [(ngModel)]="cliente.email" email #email="ngModel">
 
-      <div *ngIf="email.invalid && email.touched" class="invalid-feedback">Informe um e-mail válido</div>
+      <div *ngIf="email.invalid && email.touched">Informe um e-mail válido</div>
     </div>
 
     <div class="form-group">
-      <label>Profissão</label>
+      <label class="form-control-label">Profissão</label>
       <select class="form-control" name="profissao"
-          [(ngModel)]="cliente.profissao" required #profissao="ngModel"
-          [class.is-invalid]="profissao.invalid && profissao.touched">
+          [(ngModel)]="cliente.profissao" required #profissao="ngModel">
         <option value="">Selecione</option>
         <option *ngFor="let profissao of profissoes"
           [value]="profissao">{{ profissao }}</option>
       </select>
 
-      <div *ngIf="profissao.invalid && profissao.touched" class="invalid-feedback">Informe uma profissão</div>
+      <div *ngIf="profissao.invalid && profissao.touched">Informe uma profissão</div>
     </div>
 
     <button type="submit" class="btn btn-primary"
