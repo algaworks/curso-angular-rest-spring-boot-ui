@@ -18,6 +18,10 @@ a.p-button:focus {
   text-decoration: none;
 }
 
+.p-button {
+  margin-right: .25em
+}
+
 label {
   font-weight: bold;
 }
