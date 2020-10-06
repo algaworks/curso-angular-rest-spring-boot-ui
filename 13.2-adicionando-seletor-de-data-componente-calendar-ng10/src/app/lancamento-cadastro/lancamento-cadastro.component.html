@@ -1,0 +1,47 @@
+<div class="container">
+  <form>
+
+    <div class="p-grid">
+      <div class="p-col-12">
+        <h1>Novo Lançamento</h1>
+      </div>
+
+      <div class="p-col-6 p-md-3 p-fluid">
+        <label>Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy"
+          [inline]="false" [readonlyInput]="false"
+          [showIcon]="false"></p-calendar>
+      </div>
+      <div class="p-col-6 p-md-3 p-fluid">
+        <label>Recebimento</label>
+        <p-calendar dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+      <div class="p-col-12 p-md-9 p-fluid">
+        <label>Descrição</label>
+        <input pInputText type="text">
+      </div>
+      <div class="p-col-12 p-md-3 p-fluid">
+        <label>Valor</label>
+        <input pInputText type="text" placeholder="0,00">
+      </div>
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>Categoria</label>
+        <input pInputText type="text">
+      </div>
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>Pessoa</label>
+        <input pInputText type="text">
+      </div>
+      <div class="p-col-12 p-fluid">
+        <label>Observação</label>
+        <textarea pInputTextarea rows="3"></textarea>
+      </div>
+      <div class="p-col-12">
+        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="button" label="Novo" class="p-button-info"></button>
+        <a href="javascript:;">Voltar para a pesquisa</a>
+      </div>
+    </div>
+
+  </form>
+</div>
