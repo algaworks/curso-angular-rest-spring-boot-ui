@@ -1,0 +1,36 @@
+{
+  "cidades": [
+    {
+      "nome": "Uberlândia",
+      "id": 1
+    },
+    {
+      "nome": "São Paulo",
+      "id": 2
+    },
+    {
+      "nome": "Belo Horizonte",
+      "id": 3
+    },
+    {
+      "nome": "Goiânia",
+      "id": 4
+    },
+    {
+      "nome": "Rio de Janeiro",
+      "id": 5
+    },
+    {
+      "nome": "Curitiba",
+      "id": 6
+    },
+    {
+      "nome": "JP",
+      "id": 7
+    },
+    {
+      "nome": "Timbacity",
+      "id": 8
+    }
+  ]
+}
