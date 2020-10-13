@@ -1,0 +1,24 @@
+{
+  "cidades": [
+    {
+      "nome": "Uberlândia",
+      "id": 1
+    },
+    {
+      "nome": "São Paulo",
+      "id": 2
+    },
+    {
+      "nome": "Goiânia",
+      "id": 4
+    },
+    {
+      "nome": "João Pessoa",
+      "id": 7
+    },
+    {
+      "nome": "Itambé",
+      "id": 8
+    }
+  ]
+}
