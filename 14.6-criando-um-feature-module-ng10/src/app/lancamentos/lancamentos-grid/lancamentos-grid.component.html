@@ -22,15 +22,11 @@
       </td>
       <td class="col-data">
         <span class="p-column-title">Vencimento</span>
-        <ng-template let-lanc="rowData" pTemplate="body">
-          <span>{{ lancamento.dataVencimento | date:'dd/MM/yyyy' }}</span>
-        </ng-template>
+          {{ lancamento.dataVencimento | date:'dd/MM/yyyy' }}
       </td>
       <td class="col-data">
         <span class="p-column-title">Pagamento</span>
-        <ng-template let-lanc="rowData" pTemplate="body">
-          <span>{{ lancamento.dataPagamento | date:'dd/MM/yyyy' }}</span>
-        </ng-template>
+          {{ lancamento.dataPagamento | date:'dd/MM/yyyy' }}
       </td>
       <td class="col-valor">
         <span class="p-column-title">Valor</span>
