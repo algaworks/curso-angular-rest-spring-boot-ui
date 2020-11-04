@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #404C51;
+}
+
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+}
+
+a.p-button:hover,
+a.p-button:focus {
+  text-decoration: none;
+}
+
+a.p-button:hover {
+  background-color: #005b9f;
+  color: white!important;
+}
+
+form .p-button {
+  margin-right: .25em;
+}
+
+label {
+  font-weight: bold;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 40em) {
+  .col-valor-header {
+    width: 120px;
+  }
+
+  .col-valor {
+    text-align: right !important;
+  }
+
+  .col-data-header {
+    width: 120px;
+  }
+
+  .col-data {
+    text-align: center !important;
+  }
+
+  .col-acoes-header {
+    width: 115px;
+  }
+
+  .col-acoes {
+    width: 115px;
+    text-align: center !important;
+  }
+
+  .col-acoes .p-button {
+    margin-right: 1px;
+  }
+}
+
+.label-spaced {
+  margin: 5px;
+}
+
+.cadastro-acoes .ui-button {
+  margin-right: 5px;
+}
+
+.relatorio-filtro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
