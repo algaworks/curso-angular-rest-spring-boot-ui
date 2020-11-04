@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080',
 
-  tokenAllowedlistedDomains: [ /localhost:8080/ ],
-  tokenDisallowedlistedRoutes: [/\/oauth\/token/]
+  tokenAllowedDomains: [ /localhost:8080/ ],
+  tokenDisallowedRoutes: [/\/oauth\/token/]
 };
