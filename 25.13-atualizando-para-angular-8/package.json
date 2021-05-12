@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "8.2.14",
     "@angular/router": "8.2.14",
     "@auth0/angular-jwt": "^3.0.1",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "core-js": "^3.4.2",
     "font-awesome": "^4.7.0",
     "moment": "^2.18.1",
