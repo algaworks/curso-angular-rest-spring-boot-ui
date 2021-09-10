@@ -7,7 +7,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class FuncionarioFormComponent {
 
-
   ultimoId = 0;
   nome = 'Thiago';
   adicionado = false;

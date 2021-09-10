@@ -1,0 +1,26 @@
+<div class="container">
+
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
+    <div class="mb-3">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">E-mail</label>
+      <input type="text" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Profissão</label>
+      <select class="form-control">
+        <option value="">Selecione</option>
+        <option>Engenheiro</option>
+        <option>Dentista</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </form>
+
+</div>
