@@ -49,7 +49,11 @@ export class LancamentosPesquisaComponent implements OnInit {
   excluir(lancamento: ILancamento) {
     this.lancamentoService.excluir(lancamento.codigo)
       .subscribe(() => {
-        this.grid.reset();
+        if (this.grid.first === 0) {
+          this.pesquisar();
+        } else {
+          this.grid.reset();
+        }
 
         this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!' })
       })

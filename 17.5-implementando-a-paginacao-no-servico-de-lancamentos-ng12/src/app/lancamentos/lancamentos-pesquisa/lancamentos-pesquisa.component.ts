@@ -16,6 +16,8 @@ export class LancamentosPesquisaComponent implements OnInit {
     itensPorPagina: 5
   }
 
+  totalRegistros: number = 0
+
   lancamentos: Lancamento[] = [] ;
   
   constructor(private lancamentoService: LancamentoService) {}
@@ -30,8 +32,7 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.lancamentoService.pesquisar(this.filtro)
       .subscribe((dados: ApiResponse<Lancamento>) => {
         this.lancamentos = dados.content
-        console.log(this.lancamentos);
-        
+        this.totalRegistros = dados.totalElements 
       });
   }
 
