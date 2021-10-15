@@ -1,8 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-import { Categoria } from './../core/model';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +10,12 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  listarTodas(): Observable<Categoria[]> {
+  listarTodas(): Promise<any> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.get<Categoria[]>(this.categoriasUrl, { headers });
+    return this.http.get(this.categoriasUrl, { headers })
+      .toPromise();
   }
+
 }

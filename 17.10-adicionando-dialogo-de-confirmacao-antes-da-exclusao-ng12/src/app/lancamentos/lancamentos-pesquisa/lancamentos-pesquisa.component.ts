@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 
-import { ILancamento } from 'src/app/core/interfaces';
-import { ILancamentoFiltro } from './../../core/interfaces';
-import { LancamentoService } from './../lancamento.service';
-
+import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -15,13 +13,12 @@ import { LancamentoService } from './../lancamento.service';
 export class LancamentosPesquisaComponent implements OnInit {
 
 
-  filtro: ILancamentoFiltro = {
-    pagina: 0,
-    itensPorPagina: 5
-  }
+  filtro = new LancamentoFiltro();
+
   totalRegistros: number = 0
-  lancamentos: ILancamento[] = [] ;
-  @ViewChild('tabela') grid: any;
+
+  lancamentos: any[] = [] ;
+  @ViewChild('tabela') grid!: Table;
   
   constructor(
     private lancamentoService: LancamentoService,
@@ -36,9 +33,9 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.filtro.pagina = pagina;
     
     this.lancamentoService.pesquisar(this.filtro)
-      .subscribe(dados => {
-        this.lancamentos = dados.content
-        this.totalRegistros = dados.totalElements 
+      .then((resultado: any) => {
+        this.lancamentos = resultado.lancamentos;
+        this.totalRegistros = resultado.total ;
       });
   }
 
@@ -47,7 +44,7 @@ export class LancamentosPesquisaComponent implements OnInit {
       this.pesquisar(pagina);
   }
 
-  confirmarExclusao(lancamento: ILancamento): void {
+  confirmarExclusao(lancamento: any): void {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir?',
       accept: () => {
@@ -56,10 +53,10 @@ export class LancamentosPesquisaComponent implements OnInit {
     });
   }
 
-  excluir(lancamento: ILancamento) {
+  excluir(lancamento: any) {
 
     this.lancamentoService.excluir(lancamento.codigo)
-      .subscribe(() => {
+      .then(() => {
         if (this.grid.first === 0) {
           this.pesquisar();
         } else {

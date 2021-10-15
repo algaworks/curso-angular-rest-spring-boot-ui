@@ -18,8 +18,6 @@ export class ErrorHandlerService {
   handle(errorResponse: any) {
     let msg: string;
     console.log('Erro lançado', errorResponse);
-    
-    
 
     if (typeof errorResponse === 'string') {
       msg = errorResponse;

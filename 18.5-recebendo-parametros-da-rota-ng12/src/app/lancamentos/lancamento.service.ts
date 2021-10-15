@@ -1,9 +1,15 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Lancamento } from '../core/model';
 
-import { IApiResponse, ILancamento, ILancamentoFiltro } from '../core/interfaces';
+export class LancamentoFiltro {
+  descricao?: string
+  dataVencimentoInicio?: Date
+  dataVencimentoFim?: Date
+  pagina: number = 0
+  itensPorPagina: number = 5
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +21,7 @@ export class LancamentoService {
   constructor(private http: HttpClient,
               private datePipe: DatePipe) { }
 
-  pesquisar(filtro: ILancamentoFiltro): Observable<IApiResponse<ILancamento>> {
+  pesquisar(filtro: LancamentoFiltro): Promise<any> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
       
@@ -36,22 +42,35 @@ export class LancamentoService {
       params = params.set('dataVencimentoAte', this.datePipe.transform(filtro.dataVencimentoFim, 'yyyy-MM-dd')!);
     }
 
-    return this.http.get<IApiResponse<ILancamento>>(`${this.lancamentosUrl}?resumo`, { headers, params });
+    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
+      .toPromise()
+      .then((response : any) => {
+        const lancamentos = response['content'];
+
+        const resultado = {
+          lancamentos,
+          total: response['totalElements']
+        };
+
+        return resultado;
+      });
   }
 
-  excluir(codigo: number): Observable<void> {
+  excluir(codigo: number): Promise<void> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers });
+    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers })
+      .toPromise();
   }
 
-  adicionar(lancamento: ILancamento): Observable<ILancamento> {
+  adicionar(lancamento: Lancamento): Promise<Lancamento> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
       .append('Content-Type', 'application/json');
-  
-    return this.http.post<ILancamento>(this.lancamentosUrl, lancamento, { headers });
+
+    return this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { headers })
+      .toPromise();
   }
 
 }

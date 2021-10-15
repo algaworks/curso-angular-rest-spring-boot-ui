@@ -19,14 +19,22 @@ export class AuthService {
     this.carregarToken();
   }
 
-  login(usuario: string, senha: string): Observable<void> {
+  login(usuario: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
       .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
-    return this.http.post<void>(this.oauthTokenUrl, body, { headers });
+    return this.http.post(this.oauthTokenUrl, body, { headers })
+      .toPromise()
+      .then((response:any) => {
+        console.log(response);
+        this.armazenarToken(response['access_token']);
+      })
+      .catch(response => {
+        console.log(response);
+      });
   }
 
   public armazenarToken(token: string) {

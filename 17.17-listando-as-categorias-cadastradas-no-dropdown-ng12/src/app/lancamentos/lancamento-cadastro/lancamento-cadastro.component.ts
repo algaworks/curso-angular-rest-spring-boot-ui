@@ -32,17 +32,11 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   carregarCategorias() {
-    return this.categoriaService.listarTodas().subscribe(
-      dados => {
-        this.categorias = dados.map(dado => {
-          return {
-            label: dado.nome,
-            value: dado.codigo
-          }
-        })
-      },
-      erro => this.errorHandler.handle(erro)
-    )
+    return this.categoriaService.listarTodas()
+      .then(categorias => {
+        this.categorias = categorias.map((c: any) => ({ label: c.nome, value: c.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
 }

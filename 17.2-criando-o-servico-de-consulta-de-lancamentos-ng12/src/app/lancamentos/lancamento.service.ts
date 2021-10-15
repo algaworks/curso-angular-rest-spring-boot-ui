@@ -1,7 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ApiResponse, Lancamento } from '../core/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +10,12 @@ export class LancamentoService {
 
   constructor(private http: HttpClient) { }
 
-  pesquisar(): Observable<ApiResponse<Lancamento>> {
+  pesquisar(): Promise<any> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.get<ApiResponse<Lancamento>>(`${this.lancamentosUrl}?resumo`, { headers });
+    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers })
+      .toPromise()
+      .then((response: any) => response['content']);
   }
 }

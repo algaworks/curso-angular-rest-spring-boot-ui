@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { from, Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+
+import { Observable, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
@@ -11,7 +12,6 @@ export class NotAuthenticatedError {}
 export class MoneyHttpInterceptor implements HttpInterceptor {
 
   constructor(private auth: AuthService) {}
-
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!req.url.includes('/oauth/token') && this.auth.isAccessTokenInvalido()) {
@@ -35,5 +35,4 @@ export class MoneyHttpInterceptor implements HttpInterceptor {
 
     return next.handle(req);
   }
-
 }

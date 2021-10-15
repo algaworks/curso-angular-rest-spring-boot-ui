@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-import { MessageService } from 'primeng/api';
-
-import { IPessoa, ILancamento } from './../../core/interfaces';
 import { Lancamento } from './../../core/model';
-import { LancamentoService } from '../lancamento.service';
-import { PessoaService } from './../../pessoas/pessoa.service';
+import { Component, OnInit } from '@angular/core';
+
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { PessoaService } from 'src/app/pessoas/pessoa.service';
 import { CategoriaService } from './../../categorias/categoria.service';
-import { ErrorHandlerService } from './../../core/error-handler.service';
+import { LancamentoService } from '../lancamento.service';
+import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -18,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LancamentoCadastroComponent implements OnInit {
   
-  lancamento: ILancamento = new Lancamento();
+  lancamento: Lancamento = new Lancamento();
 
   categorias: any[] = [];
   pessoas: any[] = []
@@ -27,6 +25,7 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' },
   ];
+
   
   constructor(
     private categoriaService: CategoriaService,
@@ -40,14 +39,13 @@ export class LancamentoCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     const codigoLancamento = this.route.snapshot.params['codigo'];
-    
+
     if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento)
     }
 
     this.carregarCategorias()
     this.carregarPessoas()
-    
   }
 
   get editando() {
@@ -56,87 +54,62 @@ export class LancamentoCadastroComponent implements OnInit {
   
   carregarLancamento(codigo: number) {
     this.lancamentoService.buscarPorCodigo(codigo)
-      .subscribe(lancamento => {
-        this.converterStringsParaDatas([lancamento]);
+      .then(lancamento => {
         this.lancamento = lancamento;
       },
       erro => this.errorHandler.handle(erro));
   }
 
   carregarCategorias() {
-    return this.categoriaService.listarTodas().subscribe(
-      dados => {
-        this.categorias = dados.map(dado => ({label: dado.nome, value: dado.codigo}))  
-                        
-      },
-      erro => {
-        this.errorHandler.handle(erro)
-      }
-    )
+    return this.categoriaService.listarTodas()
+      .then(categorias => {
+        this.categorias = categorias
+          .map((c:any) => ({ label: c.nome, value: c.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   carregarPessoas() {
-    this.pessoaService.listarTodas().subscribe(
-      dados => {        
-        this.pessoas = dados.content.map((dado: IPessoa) => ({label: dado.nome, value: dado.codigo}))             
-      },      
-      erro => {
-        this.errorHandler.handle(erro)
-      }
-    )
+    this.pessoaService.listarTodas()
+      .then(pessoas => {
+        this.pessoas = pessoas
+          .map((p:any) => ({ label: p.nome, value: p.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
-  salvar(lancamentoForm: NgForm) {
+  salvar(form: NgForm) {
     if (this.editando) {
-      this.atualizarLancamento(lancamentoForm)
-      console.log('atualizando');
-      
+      this.atualizarLancamento(form)
     } else {
-      this.adicionarLancamento(lancamentoForm)
-      console.log('adicionando');
-      
+      this.adicionarLancamento(form)
     }
   }
 
-  atualizarLancamento(lancamentoForm: NgForm) {
+  atualizarLancamento(form: NgForm) {
     this.lancamentoService.atualizar(this.lancamento)
-      .subscribe(
-        (lancamento) => {
+      .then((lancamento:Lancamento) => {
           this.lancamento = lancamento;
           this.messageService.add({ severity: 'success', detail: 'Lançamento alterado com sucesso!' });
-        },
-        erro => this.errorHandler.handle(erro)
-      )
+        }
+      ).catch(erro => this.errorHandler.handle(erro))
   }
 
-  adicionarLancamento(lancamentoForm: NgForm) {
+  adicionarLancamento(form: NgForm) {
     this.lancamentoService.adicionar(this.lancamento)
-      .subscribe(
-        (lancamentoAdicionado) => {
+      .then(() => {
           this.messageService.add({ severity: 'success', detail: 'Lançamento adicionado com sucesso!' });
 
-          this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo]);
-        },
-        erro => this.errorHandler.handle(erro)
-      );    
+          form.reset();
+          this.lancamento = new Lancamento();
+        }
+      ).catch(erro => this.errorHandler.handle(erro));    
   }
 
   novo(lancamentoForm: NgForm) {
     lancamentoForm.reset(new Lancamento);
 
     this.router.navigate(['lancamentos/novo']);
-  }
-  
-  private converterStringsParaDatas(lancamentos: ILancamento[]) {
-
-    for (const lancamento of lancamentos) {
-      
-      lancamento.dataVencimento = new Date(lancamento.dataVencimento);
-
-      if (lancamento.dataPagamento) {
-        lancamento.dataPagamento = new Date(lancamento.dataPagamento); 
-      } 
-    }
   }
 
 }

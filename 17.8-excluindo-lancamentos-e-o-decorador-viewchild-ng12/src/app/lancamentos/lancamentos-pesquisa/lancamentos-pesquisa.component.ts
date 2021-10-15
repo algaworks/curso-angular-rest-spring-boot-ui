@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
 
-import { LancamentoService } from './../lancamento.service';
-import { ILancamento } from 'src/app/core/interfaces';
-import { ILancamentoFiltro } from './../../core/interfaces';
+import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
+
 @Component({
   selector: 'app-lancamentos-pesquisa',
   templateUrl: './lancamentos-pesquisa.component.html',
@@ -12,14 +12,12 @@ import { ILancamentoFiltro } from './../../core/interfaces';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
+  filtro = new LancamentoFiltro();
 
-  filtro: ILancamentoFiltro = {
-    pagina: 0,
-    itensPorPagina: 5
-  }
   totalRegistros: number = 0
-  lancamentos: ILancamento[] = [] ;
-  @ViewChild('tabela') grid: any;
+
+  lancamentos: any[] = [] ;
+  @ViewChild('tabela') grid!: Table;
   
   constructor(private lancamentoService: LancamentoService) {}
 
@@ -30,9 +28,9 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.filtro.pagina = pagina;
     
     this.lancamentoService.pesquisar(this.filtro)
-      .subscribe(dados => {
-        this.lancamentos = dados.content
-        this.totalRegistros = dados.totalElements 
+      .then((resultado: any) => {
+        this.lancamentos = resultado.lancamentos;
+        this.totalRegistros = resultado.total ;
       });
   }
 
@@ -40,14 +38,11 @@ export class LancamentosPesquisaComponent implements OnInit {
       const pagina = event!.first! / event!.rows!;
       this.pesquisar(pagina);
   }
-
-  excluir(lancamento: ILancamento) {
+  
+  excluir(lancamento: any) {
     this.lancamentoService.excluir(lancamento.codigo)
-      .subscribe(() => {
+      .then(() => {
         this.grid.reset();
       })
   }
-
-
-
 }

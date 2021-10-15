@@ -23,18 +23,7 @@ export class NavbarComponent implements OnInit {
   }
 
   criarNovoAccessToken() {
-    this.auth.obterNovoAccessToken()
-      .subscribe(
-        (response : any) => {
-          this.auth.armazenarToken(response.access_token)
-          console.log('Novo Access Token Criado');
-          
-        },
-        (error: any) => {
-          console.error(error);
-          
-        }
-      )
+    this.auth.obterNovoAccessToken();
   }
 
 }
