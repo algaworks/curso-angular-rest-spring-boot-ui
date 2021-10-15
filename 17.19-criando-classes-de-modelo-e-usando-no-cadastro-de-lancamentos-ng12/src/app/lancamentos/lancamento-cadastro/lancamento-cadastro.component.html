@@ -1,5 +1,4 @@
 <div class="container">
-    {{ lancamento | json}}
     <form #lancamentoForm="ngForm" autocomplete="off" (ngSubmit)="salvar(lancamentoForm)">
       
       <div class="p-grid">
@@ -19,8 +18,8 @@
             [(ngModel)]="lancamento.dataVencimento" name="dataVencimento"
             #vencimento="ngModel" [required]="true"></p-calendar>
 
-<!--           <app-message [control]="vencimento" error="required"
-            text="Informe uma data de vencimento"></app-message> -->
+          <app-message [control]="vencimento.control" error="required"
+            text="Informe uma data de vencimento"></app-message>
         </div>
         <div class="p-col-6 p-md-3 p-fluid">
 					<label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
@@ -41,7 +40,6 @@
 
         <div class="p-col-12 p-md-3 p-fluid">
           <label>Valor</label>
-          <!-- <p-inputNumber mode="currency" currency="BRL" placeholder="0,00"></p-inputNumber> -->
           <input pInputText type="text" placeholder="0,00" currencyMask
             [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
             [(ngModel)]="lancamento.valor" name="valor" #valor="ngModel" required>

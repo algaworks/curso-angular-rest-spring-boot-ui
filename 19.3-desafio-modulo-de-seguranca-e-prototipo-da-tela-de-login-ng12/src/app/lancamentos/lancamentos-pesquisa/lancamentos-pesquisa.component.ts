@@ -2,12 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
-import { ApiResponse, LancamentoFiltro } from '../../core/interfaces';
-import { Lancamento } from '../../core/model';
-import { ErrorHandlerService } from '../../core/error-handler.service';
-import { LancamentoService } from '../lancamento.service';
-
+import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -16,18 +14,18 @@ import { LancamentoService } from '../lancamento.service';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
-  filtro: LancamentoFiltro = {
-    pagina: 0,
-    itensPorPagina: 5
-  }
+
+  filtro = new LancamentoFiltro();
+
   totalRegistros: number = 0
-  lancamentos: Lancamento[] = [] ;
-  @ViewChild('tabela') grid: any;
+
+  lancamentos: any[] = [] ;
+  @ViewChild('tabela') grid!: Table;
   
   constructor(
     private lancamentoService: LancamentoService,
-    private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
+    private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private title: Title
   ) {}
@@ -40,13 +38,11 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.filtro.pagina = pagina;
     
     this.lancamentoService.pesquisar(this.filtro)
-      .subscribe(
-        (dados: ApiResponse<Lancamento>) => {
-          this.lancamentos = dados.content
-          this.totalRegistros = dados.totalElements  
-        },
-        (erro: any) => this.errorHandler.handle(erro)          
-      );
+      .then((resultado: any) => {
+        this.lancamentos = resultado.lancamentos;
+        this.totalRegistros = resultado.total ;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
@@ -54,7 +50,7 @@ export class LancamentosPesquisaComponent implements OnInit {
       this.pesquisar(pagina);
   }
 
-  confirmarExclusao(lancamento: Lancamento): void {
+  confirmarExclusao(lancamento: any): void {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir?',
       accept: () => {
@@ -63,22 +59,18 @@ export class LancamentosPesquisaComponent implements OnInit {
     });
   }
 
-  excluir(lancamento: Lancamento) {
+  excluir(lancamento: any) {
 
     this.lancamentoService.excluir(lancamento.codigo)
-      .subscribe(
-        () => {
-          if (this.grid.first === 0) {
-            this.pesquisar();
-          } else {
-            this.grid.reset();
-          }
+      .then(() => {
+        if (this.grid.first === 0) {
+          this.pesquisar();
+        } else {
+          this.grid.reset();
+        }
 
-          this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!' })
-        },
-        (error: any) => this.errorHandler.handle(error) 
-      )
-      
+        this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!' })
+      })
   }
 
 }

@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <h1>Relatório de lançamentos por pessoa</h1>
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="gerar()">
+      <div class="p-col-12">
+        <label>Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy" [required]=true
+          [inputStyle]="{ 'width': '95px'}"
+          [(ngModel)]="periodoInicio" name="periodoInicio"></p-calendar>
+
+        <label>até</label>
+
+        <p-calendar dateFormat="dd/mm/yy" [required]=true
+          [inputStyle]="{ 'width': '95px'}"
+          [(ngModel)]="periodoFim" name="periodoFim"></p-calendar>
+      </div>
+
+      <div class="p-col-12">
+        <button pButton type="submit" label="Gerar"
+          [disabled]="f.invalid"></button>
+      </div>
+    </form>
+  </div>
+</div>

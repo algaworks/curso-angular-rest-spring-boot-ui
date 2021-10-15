@@ -1,6 +1,5 @@
-import { FormControl, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Lancamento } from './../../core/model';
-import { IPessoa, ICategoria, ILancamento } from './../../core/interfaces';
 import { Component, OnInit } from '@angular/core';
 
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
@@ -14,7 +13,7 @@ import { CategoriaService } from './../../categorias/categoria.service';
 })
 export class LancamentoCadastroComponent implements OnInit {
   
-  lancamento: ILancamento = new Lancamento();
+  lancamento: Lancamento = new Lancamento();
 
   categorias: any[] = [];
   pessoas: any[] = []
@@ -24,8 +23,6 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Despesa', value: 'DESPESA' },
   ];
 
-
-
   
   constructor(
     private categoriaService: CategoriaService,
@@ -34,28 +31,26 @@ export class LancamentoCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.lancamento);
-    
     this.carregarCategorias()
     this.carregarPessoas()
   }
 
   carregarCategorias() {
-    return this.categoriaService.listarTodas().subscribe(
-      dados => {
-        this.categorias = dados.map(dado => ({label: dado.nome, value: dado.codigo}))                  
-      },
-      erro => this.errorHandler.handle(erro)
-    )
+    return this.categoriaService.listarTodas()
+      .then(categorias => {
+        this.categorias = categorias
+          .map((c:any) => ({ label: c.nome, value: c.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   carregarPessoas() {
-    this.pessoaService.listarTodas().subscribe(
-      dados => {        
-        this.pessoas = dados.content.map((dado: IPessoa) => ({label: dado.nome, value: dado.codigo}))     
-      },      
-      erro => this.errorHandler.handle(erro)
-    )
+    this.pessoaService.listarTodas()
+      .then(pessoas => {
+        this.pessoas = pessoas
+          .map((p:any) => ({ label: p.nome, value: p.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   salvar(lancamentoForm: NgForm) {

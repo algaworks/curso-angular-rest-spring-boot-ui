@@ -1,22 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { IPessoa, IPessoaFiltro } from 'src/app/core/interfaces';
-import { PessoaService } from '../pessoa.service';
+import { PessoaService, PessoaFiltro } from '../pessoa.service'
 
 @Component({
   selector: 'app-pessoas-pesquisa',
   templateUrl: './pessoas-pesquisa.component.html',
   styleUrls: ['./pessoas-pesquisa.component.css']
 })
-export class PessoasPesquisaComponent{
+export class PessoasPesquisaComponent {
   totalRegistros = 0;
-  filtro: IPessoaFiltro = {
-    pagina: 0,
-    itensPorPagina: 5
-  };
-  pessoas: IPessoa[] = [];
-  @ViewChild('tabela') grid: any;
+  filtro = new PessoaFiltro()
+  pessoas: any[] = [];
+  @ViewChild('tabela') grid!: any;
 
   constructor(
     private pessoaService: PessoaService,
@@ -29,21 +25,18 @@ export class PessoasPesquisaComponent{
     this.filtro.pagina = pagina;
     
     this.pessoaService.pesquisar(this.filtro)
-      .subscribe(
-        dados => {
-          this.pessoas = dados.content
-          this.totalRegistros = dados.totalElements         
-        },
-        erro => this.errorHandler.handle(erro)
-      );
+      .then((dados: any) => {
+        this.pessoas = dados.pessoas;
+        this.totalRegistros = dados.total; 
+      });
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
       const pagina = event!.first! / event!.rows!;
       this.pesquisar(pagina);
   }
-  
-  confirmarExclusao(pessoa: IPessoa): void {
+
+  confirmarExclusao(pessoa: any): void {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir?',
       accept: () => {
@@ -52,30 +45,30 @@ export class PessoasPesquisaComponent{
     });
   }
 
-  excluir(pessoa: IPessoa) {
+  excluir(pessoa: any) {
 
     this.pessoaService.excluir(pessoa.codigo)
-      .subscribe(
+      .then(
         () => {
           this.grid.reset();
 
           this.messageService.add({ severity: 'success', detail: 'Pessoa excluída com sucesso!' })
-        },
-        (error) => this.errorHandler.handle(error) 
-      )      
+        }
+      )
+      .catch((error) => this.errorHandler.handle(error))
+      
   }
 
   alternarStatus(pessoa: any): void {
     const novoStatus = !pessoa.ativo;
 
-    this.pessoaService.mudarStatus(pessoa.codigo, novoStatus).subscribe(
-      () => {
+    this.pessoaService.mudarStatus(pessoa.codigo, novoStatus)
+      .then(() => {
         const acao = novoStatus ? 'ativada' : 'desativada';
 
         pessoa.ativo = novoStatus;
         this.messageService.add({ severity: 'success', detail: `Pessoa ${acao} com sucesso!` });
-      },
-      erro => this.errorHandler.handle(erro));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
-
 }

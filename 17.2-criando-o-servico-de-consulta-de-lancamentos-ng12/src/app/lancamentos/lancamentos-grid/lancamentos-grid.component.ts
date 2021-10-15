@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Lancamento } from '../../core/interfaces';
-
 @Component({
   selector: 'app-lancamentos-grid',
   templateUrl: './lancamentos-grid.component.html',
@@ -9,7 +7,7 @@ import { Lancamento } from '../../core/interfaces';
 })
 export class LancamentosGridComponent implements OnInit {
 
-  @Input() lancamentos: Lancamento[] = [];
+  @Input() lancamentos: any[] = [];
 
   constructor() { }
 

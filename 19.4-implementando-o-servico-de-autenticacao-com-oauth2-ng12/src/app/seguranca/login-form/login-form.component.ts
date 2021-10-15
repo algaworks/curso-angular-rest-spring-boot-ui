@@ -11,14 +11,6 @@ export class LoginFormComponent {
   constructor(private auth: AuthService) { }
 
   login(usuario: string, senha: string) {
-    this.auth.login(usuario, senha)
-      .subscribe(
-        (response) => {
-          console.log(response);          
-        },
-        (response) => {
-          console.log(response);          
-        }
-      );
+    this.auth.login(usuario, senha);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Lancamento, ApiResponse } from 'src/app/core/interfaces';
 
 import { LancamentoService } from './../lancamento.service';
 
@@ -10,7 +9,7 @@ import { LancamentoService } from './../lancamento.service';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
-  lancamentos: Lancamento[] = [] ;
+  lancamentos: any[] = [] ;
   
 
   constructor(private lancamentoService: LancamentoService) {}
@@ -21,7 +20,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   
   pesquisar(): void {
     this.lancamentoService.pesquisar()
-      .subscribe((dados: ApiResponse<Lancamento>) => this.lancamentos = dados.content);
+      .then(lancamentos => this.lancamentos = lancamentos);
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LancamentoService } from './../lancamento.service';
-import { ApiResponse, Lancamento } from './../../core/interfaces';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -11,17 +10,17 @@ import { ApiResponse, Lancamento } from './../../core/interfaces';
 export class LancamentosPesquisaComponent implements OnInit {
 
   descricao: string = '';
-  lancamentos: Lancamento[] = [] ;
-  
+  lancamentos: any[] = [] ;
+
   constructor(private lancamentoService: LancamentoService) {}
-  
+
   ngOnInit(): void {
-    this.pesquisar();    
+    this.pesquisar();
   }
-  
-  pesquisar(): void {    
+
+  pesquisar(): void {
     this.lancamentoService.pesquisar({ descricao: this.descricao})
-      .subscribe((dados: ApiResponse<Lancamento>) => this.lancamentos = dados.content);
+      .then(lancamentos => this.lancamentos = lancamentos);
   }
 
 }

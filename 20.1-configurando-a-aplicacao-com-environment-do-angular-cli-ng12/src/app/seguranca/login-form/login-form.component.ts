@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 
 import { AuthService } from './../auth.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
-import { throwError } from 'rxjs';
-import { first, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-form',
@@ -24,8 +22,9 @@ export class LoginFormComponent {
       .then(() => {
         this.router.navigate(['/lancamentos']);
       })
-      .catch(erro => {
+      .catch((erro:any) => {
         this.errorHandler.handle(erro);
       });
   }
+
 }
