@@ -1,0 +1,97 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #404C51;
+}
+
+label {
+    font-weight: bold;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+        margin: 0 auto;
+    }
+}
+
+.label {
+    margin: 0.5em;
+}
+
+.col-valor-header {
+    width: 120px;
+    text-align: center !important;
+}
+  
+.col-valor-content {
+    text-align: right !important ;
+}
+  
+.col-data-header {
+    width: 120px;
+}
+  
+.col-data-content {
+    text-align: center !important;
+}
+
+.col-acoes-header {
+  width: 115px;
+}
+
+.col-acoes {
+    width: 115px;
+    text-align: center;
+}
+
+.col-acoes > a {
+    margin-right: 5px;
+}
+
+button.p-button {
+  margin: 0 2px;
+}
+
+@media (min-width: 40em) {
+    .col-valor-header {
+      width: 120px;
+    }
+  
+    .col-valor {
+      text-align: right !important;
+    }
+  
+    .col-data-header {
+      width: 120px;
+    }
+  
+    .col-data {
+      text-align: center !important;
+    }
+  
+    .col-acoes-header {
+      width: 120px;
+    }
+  
+    .col-acoes {
+      width: 120px;
+      text-align: center !important;
+    }
+  
+  }
+
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+  
+a:hover, a:focus {
+  text-decoration: underline;
+}
+  
+a.p-button:hover,
+a.p-button:focus {
+  text-decoration: none;
+}
