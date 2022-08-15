@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="grid">
+
+    <div class="col-12">
+      <h1>Lançamentos</h1>
+    </div>
+
+    <div class="col-12 p-fluid">
+      <label>Descrição</label>
+      <input pInputText type="text">
+    </div>
+
+    <div class="col-12">
+      <label style="display: block">Vencimento</label>
+      <input pInputText type="text" style="width: 95px">
+
+      <label class="label">até</label>
+      <input pInputText type="text" style="width: 95px">
+    </div>
+
+    <div class="col-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+    </div>
+  </div>
+
+  <app-lancamentos-grid [lancamentos]="lancamentos"></app-lancamentos-grid>
+
+  <a pButton label="Novo Lançamento"></a>
+
+</div>

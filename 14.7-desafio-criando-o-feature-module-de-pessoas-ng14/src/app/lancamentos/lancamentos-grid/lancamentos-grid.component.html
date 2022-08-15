@@ -1,0 +1,50 @@
+<div class="grid">
+  <div class="col-12">
+    <p-table [value]="lancamentos" [paginator]="true" [rows]="2" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Pessoa</th>
+          <th>Descrição</th>
+          <th class="col-data-header">Vencimento</th>
+          <th class="col-data-header">Pagamento</th>
+          <th class="col-valor-header">Valor</th>
+          <th class="col-acoes"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-lancamento>
+        <tr>
+          <td>
+            <span class="p-column-title">Pessoa</span>
+            {{ lancamento.pessoa }}
+          </td>
+
+          <td>
+            <span class="p-column-title">Descrição</span>
+            {{ lancamento.descricao }}
+          </td>
+
+          <td class="col-data">
+            <span class="p-column-title">Vencimento</span>
+            {{ lancamento.dataVencimento | date:'dd/MM/y' }}
+          </td>
+
+          <td class="col-data">
+            <span class="p-column-title">Pagamento</span>
+            {{ lancamento.dataPagamento | date:'dd/MM/y' }}
+          </td>
+
+          <td class="col-valor">
+            <span class="p-column-title">Valor</span>
+            <span [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{ lancamento.valor | number:'1.2-2'
+              }}</span>
+          </td>
+
+          <td class="col-acoes">
+            <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+            <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
