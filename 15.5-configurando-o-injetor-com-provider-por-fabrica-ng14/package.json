@@ -1,0 +1,50 @@
+{
+  "name": "meuprojeto",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^14.1.2",
+    "@angular/common": "^14.1.2",
+    "@angular/compiler": "^14.1.2",
+    "@angular/core": "^14.1.2",
+    "@angular/forms": "^14.1.2",
+    "@angular/platform-browser": "^14.1.2",
+    "@angular/platform-browser-dynamic": "^14.1.2",
+    "@angular/router": "^14.1.2",
+    "bootstrap": "^4.5.2",
+    "core-js": "^2.4.1",
+    "rxjs": "^6.6.3",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^14.1.3",
+    "@angular/cli": "^14.1.3",
+    "@angular/compiler-cli": "^14.1.2",
+    "@angular/language-service": "^14.1.2",
+    "@types/jasmine": "~3.6.0",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^6.0.0",
+    "jasmine-core": "~3.8.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "^1.7.0",
+    "protractor": "~7.0.0",
+    "ts-node": "~3.0.4",
+    "tslint": "~6.1.0",
+    "typescript": "~4.6.4"
+  }
+}
