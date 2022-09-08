@@ -140,15 +140,10 @@ export class LancamentoCadastroComponent implements OnInit {
 
   novo() {
     this.formulario.reset();
-
-    setTimeout(() => {
-      // this.lancamento = new Lancamento();
-      this.formulario.setValue({})
-    }, 1);
-
+    this.formulario.patchValue(new Lancamento())
     this.router.navigate(['lancamentos/novo']);
   }
-
+  
   atualizarTituloEdicao() {
     this.title.setTitle(`Edição de lançamento: ${this.formulario.get('descricao')?.value}`)
   }
