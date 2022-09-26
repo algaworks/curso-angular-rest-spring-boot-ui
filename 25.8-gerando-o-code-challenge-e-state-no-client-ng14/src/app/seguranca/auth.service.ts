@@ -12,7 +12,7 @@ import { environment } from './../../environments/environment';
 export class AuthService {
 
   tokensRevokeUrl = environment.apiUrl + '/tokens/revoke';
-  oauthTokenUrl = environment.apiUrl + '/oauth/token'
+  oauthTokenUrl = environment.apiUrl + '/oauth2/token'
   oauthAuthorizeUrl = environment.apiUrl + '/oauth2/authorize'
   jwtPayload: any;
 
