@@ -1,0 +1,25 @@
+<div class="container">
+    <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
+
+        <div class="grid">
+            <div class="col-12 md:col-6 p-fluid" formGroupName="categoria">
+                <label>Categoria</label>
+                <p-dropdown [options]="categorias" placeholder="Selecione" name="categoria" formControlName="codigo">
+                </p-dropdown>
+            </div>
+
+            <div class="col-12 md:col-6 p-fluid" formGroupName="pessoa">
+                <label>Pessoa</label>
+                <p-dropdown [options]="pessoas" placeholder="Selecione" name="pessoa" [filter]="true"
+                    formControlName="codigo">
+                </p-dropdown>
+            </div>
+
+            <div class="col-12">
+                <button pButton type="button" label="Voltar" (click)="voltar()"></button>
+                <button pButton type="submit" label="Próximo" [disabled]="formulario.invalid"></button>
+            </div>
+        </div>
+
+    </form>
+</div>

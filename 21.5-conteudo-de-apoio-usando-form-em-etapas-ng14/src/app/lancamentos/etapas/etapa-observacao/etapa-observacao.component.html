@@ -1,0 +1,18 @@
+<div class="container">
+    <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
+
+        <div class="grid">
+
+            <div class="col-12 p-fluid">
+                <label>Observação</label>
+                <textarea pInputTextarea rows="3" name="observacao" formControlName="observacao"></textarea>
+            </div>
+
+            <div class="col-12">
+                <button pButton type="button" label="Voltar" class="p-button-info" (click)="voltar()"></button>
+                <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid"></button>
+            </div>
+        </div>
+
+    </form>
+</div>
